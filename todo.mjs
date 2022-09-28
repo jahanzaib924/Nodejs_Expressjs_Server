@@ -1,10 +1,24 @@
 import express from 'express'
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
+let todos= [];
+app.use(express.json());
+//app.use(cors())
+app.post('/todo', (req, res) => {
+  console.log(req.body)
+  todos.push(req.body.text);
+  res.send({
+    message: "Your data is saved",
+    data: todos
+  })
+})
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-  console.log('Hello World!')
+app.get('/todos', (req, res) => {
+  res.send({
+    message: "Here is your todos list",
+    data: todos
+  })
+
 })
 
 app.listen(port, () => {
