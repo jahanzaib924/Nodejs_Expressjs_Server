@@ -21,6 +21,13 @@ app.get('/todos', (req, res) => {
   })
 
 })
+app.delete('/delete', (req, res) => {
+  res.send({
+    message: "your data is deleted",
+    data: todos
+  })
+
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
