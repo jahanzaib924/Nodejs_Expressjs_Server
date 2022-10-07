@@ -21,12 +21,39 @@ app.get('/todos', (req, res) => {
   })
 
 })
-app.delete('/delete', (req, res) => {
-  res.send({
-    message: "your data is deleted",
-    data: todos
-  })
+app.put('/todo/:id', (req, res) => {
+  const text = req.body.text
+  const id = req.params.id
+  todoModel.findByIdAndUpdate(id, { text: text }, (err, data) => {
+      res.send({
+          data: data
+      })
+  });
+})
 
+app.delete('/todo/:id', (req, res) => {
+  const id = req.params.id
+  console.log(id);
+  todoModel.findByIdAndDelete(id, (err, data) => {
+      res.send({
+          data: data
+      })
+  })
+})
+
+app.delete('/todos/:course', (req, res) => {
+  const course = req.params.course
+  todoModel.deleteMany({ course: { $eq: course } }, (err, data) => {
+      if (!err) {
+          res.send({
+              data
+          })
+      }
+  })
+})
+
+app.get('*', (req, res) => {
+  res.status(404).send('Page not Found')
 })
 
 app.listen(port, () => {
