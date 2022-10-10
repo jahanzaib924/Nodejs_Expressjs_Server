@@ -19,7 +19,9 @@
   "homepage": "https://github.com/jahanzaib924/Nodejs_Expressjs_Server#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "mongodb": "^4.10.0",
+    "mongoose": "^6.6.5"
   },
   "description": ""
 }
