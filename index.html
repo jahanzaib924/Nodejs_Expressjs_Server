@@ -52,7 +52,7 @@
                   document.querySelector("#result").innerHTML = ""
 
                   response.data.data.map(eachTodo => {
-                      document.querySelector("#result").innerHTML += eachTodo
+                      document.querySelector("#result").innerHTML += eachTodo.text
                       document.querySelector("#result").innerHTML += '<br>'
                   })
 
@@ -70,13 +70,21 @@
     //               console.log(err.message);
     //           })
     //   }
-      function dltAll() {
-          axios.delete(`https://adorable-lamb-outfit.cyclic.app/delete`)
-              .then((res) => {
-                  console.log(res.data);
-                  result.innerHTML = ''
-              })
-      }
+    function getDelete() {
+       
+                  
+       let code = prompt("Enter Password")
+       if (code === "123") {
+           axios.delete('https://adorable-lamb-outfit.cyclic.app/delete')
+       .then(function (response) {
+               console.log(response.data);
+       
+           })    
+           .catch((error) => {
+           console.log(error)
+       })
+   }}
+
       
     </script>
   </body>

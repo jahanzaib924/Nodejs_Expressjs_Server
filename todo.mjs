@@ -51,6 +51,21 @@ app.get('/todos', (req, res) => {
         }
     });
 })
+app.delete('/delete', (req, res) => {
+
+  todoModel.find({}, (err, data) => {
+      if (!err) {
+          res.send({
+              message: "here is you todo list",
+              data: data
+          })
+      }else{
+          res.status(500).send({
+              message: "server error"
+          })
+      }
+  });
+})
 
 app.listen(port, () => {
     console.log(`Server app is listening on port ${port}`)
