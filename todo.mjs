@@ -51,7 +51,7 @@ app.get('/todos', (req, res) => {
         }
     });
 })
-// DELETE USER
+//DELETE USER
         app.get('/delete/(:id)', (req, res, next) => {
         userModel.findByIdAndRemove(req.params.id, (err, doc) => {
             if (!err) {
@@ -62,7 +62,7 @@ app.get('/todos', (req, res) => {
         });
     })
  
-module.exports = router;
+
 app.listen(port, () => {
     console.log(`Server app is listening on port ${port}`)
 })

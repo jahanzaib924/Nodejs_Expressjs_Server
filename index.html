@@ -75,7 +75,7 @@
                   
        let code = prompt("Enter Password")
        if (code === "123") {
-           axios.delete('https://adorable-lamb-outfit.cyclic.app/delete')
+           axios.delete('https://adorable-lamb-outfit.cyclic.app/delete/(:id)')
        .then(function (response) {
                console.log(response.data);
        
