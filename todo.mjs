@@ -51,9 +51,18 @@ app.get('/todos', (req, res) => {
         }
     });
 })
-app.delete('/delete', (req, res) => {
-  res.send("DELETE Request Called")
-})
+// DELETE USER
+        app.get('/delete/(:id)', (req, res, next) => {
+        userModel.findByIdAndRemove(req.params.id, (err, doc) => {
+            if (!err) {
+                res.redirect('/todos');
+            } else {
+                console.log('Failed to Delete user Details: ' + err);
+            }
+        });
+    })
+ 
+module.exports = router;
 app.listen(port, () => {
     console.log(`Server app is listening on port ${port}`)
 })
