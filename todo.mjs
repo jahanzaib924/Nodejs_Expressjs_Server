@@ -51,17 +51,38 @@ app.get('/todos', (req, res) => {
         }
     });
 })
-//DELETE USER
-        app.get('/delete/(:id)', (req, res, next) => {
-        userModel.findByIdAndRemove(req.params.id, (err, doc) => {
-            if (!err) {
-                res.redirect('/todos');
-            } else {
-                console.log('Failed to Delete user Details: ' + err);
-            }
-        });
-    })
- 
+//DELETE All
+app.delete('/todos', (req, res) => {
+
+    todoModel.deleteMany({}, (err, data) => {
+        if (!err) {
+            res.send({
+                message: "all todos are deleted successfully",
+                data: data
+            })
+        }else{
+            res.status(500).send({
+                message: "server error"
+            })
+        }
+    });
+})  
+//delete by id
+app.delete('/todo:id', (req, res) => {
+
+    todoModel.deleteOne({_id: req.params.id}, (err, data) => {
+        if (!err) {
+            res.send({
+                message: "Your todo is delete",
+                data: data
+            })
+        }else{
+            res.status(500).send({
+                message: "server error"
+            })
+        }
+    });
+})
 
 app.listen(port, () => {
     console.log(`Server app is listening on port ${port}`)
