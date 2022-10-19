@@ -17,11 +17,8 @@
     </form>
     <button onclick="getAllTodos()">Refresh</button>
     <button onclick="deleteAllTodos()">DeleteAll</button>
-    <button o onclick="deleteTodo()">DeleteAll</button>
-     <div id="result">
-    <button>delete</button>
-
-</div>
+     <h1 id="result"></h1>
+  
     <script>
          let baseUrl =
             (document.location.protocol === 'https:') ?
@@ -51,8 +48,62 @@
             console.log(error);
           });
       }
-      //DELETE TODO
-      let deleteTodo = async (id) => {
+     
+      function getAllTodos() {
+        axios
+          .get(`https://adorable-lamb-outfit.cyclic.app/todos`)
+          .then(function (response) {
+            console.log(response.data);
+
+            document.querySelector("#result").innerHTML = "";
+
+            response.data.data.map((eachTodo) => {
+              document.querySelector("#result").innerHTML += `<span id='span-${eachTodo._id}'> ${eachTodo.text} </span>`;
+              document.querySelector("#result").innerHTML +=
+                        document.querySelector("#result").innerHTML +=
+                            `&nbsp;&nbsp; <button class="del" onclick="deleteTodo('${eachTodo._id}')" id='delete-${eachTodo._id}'> Delete </button>
+                            <button class="edit"  onclick="editTo do('${eachTodo._id}')" id='edit-${eachTodo._id}'> Edit </button>`
+                            
+
+                        document.querySelector("#result").innerHTML += '<br>'
+              // document.querySelector("#result").innerHTML += "<button>delete</button>";
+              // document.querySelector("#result").innerHTML += eachTodo.text;
+              // document.querySelector("#result").innerHTML += "<br>";
+            });
+          });
+      }
+      // function getAllTodos() {
+      //       axios.get(`${baseUrl}/todos`)
+      //           .then(function (response) {
+      //               console.log(response.data);
+
+      //               document.querySelector("#result").innerHTML = ""
+
+      //               response.data.data.map(eachTodo => {
+      //                   document.querySelector("#result").innerHTML += `<span id='span-${eachTodo._id}'> ${eachTodo.text} </span>`;
+      //                   document.querySelector("#result").innerHTML +=
+      //                       `<form id='form-${eachTodo._id}' style="display: none;" onsubmit="updateTodo('${eachTodo._id}'); return false"> 
+      //                           <input class=upbx id='input-${eachTodo._id}' value='${eachTodo.text}'  />
+      //                           <button class=up type="submit">Update</button>
+      //                       </form>`;
+
+      //                   document.querySelector("#result").innerHTML +=
+      //                       `&nbsp;&nbsp; <button class="del" onclick="deleteTodo('${eachTodo._id}')" id='delete-${eachTodo._id}'> Delete </button>
+      //                       <button class="edit"  onclick="editTo do('${eachTodo._id}')" id='edit-${eachTodo._id}'> Edit </button>`
+                            
+
+      //                   document.querySelector("#result").innerHTML += '<br>'
+      //               })
+
+      //           })
+      //           .catch(function (error) {
+      //               console.log(error);
+      //           })
+      //   }
+ 
+      setInterval(getAllTodos, 1000);
+       //DELETE TODO
+       let deleteTodo = async (id) => {
         try {
           let response = await axios.delete(`${baseUrl}/todo/${id}`);
 
@@ -67,22 +118,6 @@
         }
       };
 
-      function getAllTodos() {
-        axios
-          .get(`https://adorable-lamb-outfit.cyclic.app/todos`)
-          .then(function (response) {
-            console.log(response.data);
-
-            document.querySelector("#result").innerHTML = "";
-
-            response.data.data.map((eachTodo) => {
-              document.querySelector("#result").innerHTML += eachTodo.text;
-              document.querySelector("#result").innerHTML += "<br>";
-            });
-          });
-      }
-      setInterval(getAllTodos, 1000);
-      
       let deleteAllTodos = async () => {
         try {
           let response = await axios.delete(
