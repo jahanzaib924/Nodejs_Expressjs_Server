@@ -34,6 +34,7 @@
           })
           .then(function (response) {
             console.log(response.data);
+            getAllTodos();
 
             document.querySelector("#result").innerHTML = "";
 
@@ -58,9 +59,11 @@
             document.querySelector("#result").innerHTML = "";
 
             response.data.data.map((eachTodo) => {
-              document.querySelector("#result").innerHTML += `<span id='span-${eachTodo._id}'> ${eachTodo.text} </span>`;
+              document.querySelector("#result").innerHTML += 
+              `<span id='span-${eachTodo._id}'> ${eachTodo.text} </span>`;
               document.querySelector("#result").innerHTML +=
-                        document.querySelector("#result").innerHTML +=
+                        
+              //document.querySelector("#result").innerHTML +=
                             `&nbsp;&nbsp; <button class="del" onclick="deleteTodo('${eachTodo._id}')" id='delete-${eachTodo._id}'> Delete </button>
                             <button class="edit"  onclick="editTo do('${eachTodo._id}')" id='edit-${eachTodo._id}'> Edit </button>`
                             
@@ -100,7 +103,7 @@
       //               console.log(error);
       //           })
       //   }
- 
+      getAllTodos();
       setInterval(getAllTodos, 1000);
        //DELETE TODO
        let deleteTodo = async (id) => {
